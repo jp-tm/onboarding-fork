@@ -14,9 +14,33 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
+import { ModeToggle } from "@/components/mode-toggle"
+
+interface UserData {
+  firstName: string
+  lastName: string
+  email: string
+}
 
 export function DashboardHeader() {
   const router = useRouter()
+  const [user, setUser] = useState<UserData | null>(null)
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/auth/me")
+        if (res.ok) {
+          const data = await res.json()
+          setUser(data.user)
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error)
+      }
+    }
+    fetchUser()
+  }, [])
 
   async function handleLogout() {
     try {
@@ -38,31 +62,34 @@ export function DashboardHeader() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="flex items-center gap-2 group transition-all">
-            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-              <span className="text-primary-foreground font-bold text-xs">PDL</span>
-            </div>
+            <img src="/assets/logo.png" alt="Logo" className="h-10 w-auto object-contain group-hover:scale-110 transition-transform" />
             <span className="text-xl font-bold tracking-tight hidden sm:block">
                Peace-Driven Leader<span className="text-primary">™</span>
             </span>
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 hover:bg-primary/10">
                 <Avatar className="h-9 w-9 border-2 border-primary/20">
-                  <AvatarImage src="" alt="User" />
-                  <AvatarFallback className="bg-primary/5 text-primary text-xs font-bold">PL</AvatarFallback>
+                  <AvatarImage src="" alt={user?.firstName || "User"} />
+                  <AvatarFallback className="bg-primary/5 text-primary text-xs font-bold uppercase">
+                    {user ? `${user.firstName[0]}${user.lastName[0]}` : "PL"}
+                  </AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 rounded-sm" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Leader</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    Activation Journey
+                  <p className="text-sm font-medium leading-none">
+                    {user ? `${user.firstName} ${user.lastName}` : "Leader"}
+                  </p>
+                  <p className="text-xs leading-none text-muted-foreground truncate max-w-[180px]">
+                    {user?.email || "Activation Journey"}
                   </p>
                 </div>
               </DropdownMenuLabel>
