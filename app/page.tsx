@@ -80,32 +80,6 @@ export default function Page() {
                     </div>
                 </section>
 
-                {/* Welcome Videos */}
-                <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div className="space-y-6">
-                        <h2 className="text-3xl font-bold tracking-tight">The Invitation</h2>
-                        <p className="text-lg text-muted-foreground">
-                            Hear directly from our founders about why the Peace-Driven Leader™ Activation Pathway is the gold standard for high-performance impact without the sacrifice of soul.
-                        </p>
-                        <VideoPlayer 
-                            title="Welcome to Minesha" 
-                            videoId="6xdbGNPE63c" 
-                            className="w-full h-80 shadow-primary/20"
-                        />
-                    </div>
-                    <div className="space-y-6">
-                        <h2 className="text-3xl font-bold tracking-tight">The Philosophy</h2>
-                        <p className="text-lg text-neutral-400">
-                            A deep dive into our methodology: how we calibrate your internal wiring to achieve supernatural results in your family, business, and beyond.
-                        </p>
-                        <VideoPlayer 
-                            title="The Core Methodology" 
-                            videoId="edqAzcIRxm8" 
-                            className="w-full h-80 shadow-primary/20"
-                        />
-                    </div>
-                </section>
-
                 {/* Sneak Peek Pathway Section */}
                 <section className="space-y-16">
                     <div className="text-center space-y-4">
