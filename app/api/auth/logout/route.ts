@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server"
 
 export async function POST() {
-    return logout()
+    const response = NextResponse.json({ success: true })
+    clearAuthCookie(response)
+    return response
 }
 
-export async function GET() {
-    return logout()
+export async function GET(request: Request) {
+    const response = NextResponse.redirect(new URL("/login", request.url))
+    clearAuthCookie(response)
+    return response
 }
 
-function logout() {
-    const response = NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"))
-    
+function clearAuthCookie(response: NextResponse) {
     response.cookies.set("auth_token", "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -18,6 +20,4 @@ function logout() {
         expires: new Date(0),
         path: "/",
     })
-
-    return response
 }
