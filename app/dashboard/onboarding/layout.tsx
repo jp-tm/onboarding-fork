@@ -53,6 +53,7 @@ export default async function OnboardingLayout({
         "2A",
         "2B",
         "2C",
+        "2D",
         "3A",
         "3B",
         "3C",

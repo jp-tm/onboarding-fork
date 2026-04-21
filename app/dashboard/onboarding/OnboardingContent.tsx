@@ -184,6 +184,21 @@ export default function OnboardingContent() {
                             data.awareness?.eveningPulse?.heavyToday || "",
                         pulse_level:
                             data.awareness?.eveningPulse?.peaceLevel || 5,
+                        home_audit: {
+                            q1: data.awareness?.homeAudit?.q1 || "",
+                            q2: data.awareness?.homeAudit?.q2 || "",
+                            q3: data.awareness?.homeAudit?.q3 || "",
+                            q4: data.awareness?.homeAudit?.q4 || "",
+                            q5: data.awareness?.homeAudit?.q5 || "",
+                            q6: data.awareness?.homeAudit?.q6 || "",
+                            q7: data.awareness?.homeAudit?.q7 || "",
+                            q8: data.awareness?.homeAudit?.q8 || "",
+                            q9: data.awareness?.homeAudit?.q9 || "",
+                            q10: data.awareness?.homeAudit?.q10 || "",
+                            q11: data.awareness?.homeAudit?.q11 || "",
+                            q12: data.awareness?.homeAudit?.q12 || "",
+                            embodiment: data.awareness?.homeAudit?.embodiment || "",
+                        },
                         // Phase 3
                         stabilization_activation:
                             data.stabilization?.visionActivation || {},
@@ -270,6 +285,11 @@ export default function OnboardingContent() {
                     formData.pulse_heavy
                 dataToSave["awareness.eveningPulse.peaceLevel"] =
                     formData.pulse_level
+            } else if (nextStep === "2D") {
+                const ha = formData.home_audit || {}
+                ;["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11","q12","embodiment"].forEach((k) => {
+                    dataToSave[`awareness.homeAudit.${k}`] = ha[k] || ""
+                })
             } else if (nextStep === "3A") {
                 dataToSave["stabilization.visionActivation"] =
                     formData.stabilization_activation
@@ -307,7 +327,8 @@ export default function OnboardingContent() {
                 nextStep = "2A"
             } else if (nextStep === "2A") nextStep = "2B"
             else if (nextStep === "2B") nextStep = "2C"
-            else if (nextStep === "2C") {
+            else if (nextStep === "2C") nextStep = "2D"
+            else if (nextStep === "2D") {
                 nextPhase = 3
                 nextStep = "3A"
             } else if (nextStep === "3A") nextStep = "3B"
@@ -419,6 +440,11 @@ export default function OnboardingContent() {
                     formData.pulse_heavy
                 dataToSave["awareness.eveningPulse.peaceLevel"] =
                     formData.pulse_level
+            } else if (currentStep === "2D") {
+                const ha = formData.home_audit || {}
+                ;["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11","q12","embodiment"].forEach((k) => {
+                    dataToSave[`awareness.homeAudit.${k}`] = ha[k] || ""
+                })
             } else if (currentStep === "3A") {
                 dataToSave["stabilization.visionActivation"] =
                     formData.stabilization_activation
@@ -471,9 +497,10 @@ export default function OnboardingContent() {
                 prevStep = "1F"
             } else if (prevStep === "2B") prevStep = "2A"
             else if (prevStep === "2C") prevStep = "2B"
+            else if (prevStep === "2D") prevStep = "2C"
             else if (prevStep === "3A") {
                 prevPhase = 2
-                prevStep = "2C"
+                prevStep = "2D"
             } else if (prevStep === "3B") prevStep = "3A"
             else if (prevStep === "3C") prevStep = "3B"
             else if (prevStep === "3D") prevStep = "3C"
@@ -640,6 +667,17 @@ export default function OnboardingContent() {
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
                             "Release. Reflect. Realign."
+                        </p>
+                    </>
+                )}
+
+                {currentStep === "2D" && (
+                    <>
+                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                            Home Audit
+                        </h1>
+                        <p className="text-xl font-medium text-muted-foreground italic">
+                            "Honest inventory of your home. Clarity before change."
                         </p>
                     </>
                 )}
@@ -817,7 +855,8 @@ export default function OnboardingContent() {
                                     {currentStep === "1F" && "360 Evaluation"}
                                     {currentStep === "2A" && "Growth Inputs"}
                                     {currentStep === "2B" && "Evening Pulse"}
-                                    {currentStep === "2C" &&
+                                    {currentStep === "2C" && "Home Audit"}
+                                    {currentStep === "2D" &&
                                         "Phase 3 ~ Stabilization"}
                                     {currentStep === "3A" &&
                                         "Vision Statements"}
