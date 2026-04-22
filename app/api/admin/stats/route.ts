@@ -42,8 +42,15 @@ export async function GET() {
             now.getTime() - 8 * 7 * 24 * 60 * 60 * 1000
         )
 
-        const [totalClients, profiles, registrationTrend, completionTrend] =
-            await Promise.all([
+        const [
+            totalClients,
+            profiles,
+            registrationTrend,
+            completionTrend,
+            activeSubscribers,
+            pendingSubscribers,
+            planAgg,
+        ] = await Promise.all([
                 User.countDocuments({ role: "client" }),
                 OnboardingProfile.find({}).select("status").lean(),
                 User.aggregate([
@@ -96,6 +103,12 @@ export async function GET() {
                     },
                     { $sort: { _id: 1 } },
                 ]),
+                User.countDocuments({ role: "client", accountStatus: "active" }),
+                User.countDocuments({ role: "client", accountStatus: "pending" }),
+                User.aggregate([
+                    { $match: { role: "client", plan: { $ne: null } } },
+                    { $group: { _id: "$plan", count: { $sum: 1 } } },
+                ]),
             ])
 
         const completed = profiles.filter((p) => p.status.isCompleted).length
@@ -137,6 +150,12 @@ export async function GET() {
             return { step, count }
         })
 
+        const planBreakdown = { basic: 0, intermediate: 0, custom: 0 }
+        for (const p of planAgg) {
+            if (p._id in planBreakdown)
+                planBreakdown[p._id as keyof typeof planBreakdown] = p.count
+        }
+
         return {
             totalClients,
             inProgress,
@@ -144,6 +163,9 @@ export async function GET() {
             stale,
             phaseDistribution,
             stepFunnel,
+            activeSubscribers,
+            pendingSubscribers,
+            planBreakdown,
             registrationTrend: registrationTrend.map((r) => ({
                 week: r._id,
                 count: r.count,

@@ -1,20 +1,30 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
 import { StepFunnelChart } from "@/components/admin/charts/bar-chart"
 import { CompletionsBarChart } from "@/components/admin/charts/bar-chart-vertical"
 import { PhaseDistributionChart } from "@/components/admin/charts/pie-chart"
 import { RegistrationAreaChart } from "@/components/admin/charts/area-chart"
+import { SubscriptionStatCards } from "@/components/admin/subscription-stat-cards"
+import { PendingQueueCard } from "@/components/admin/pending-queue-card"
+import { PlanDistributionChart } from "@/components/admin/plan-distribution-chart"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Users, TrendingUp, CheckCircle2, Clock } from "lucide-react"
+
+interface PlanBreakdown {
+    basic: number
+    intermediate: number
+    custom: number
+}
 
 interface Stats {
     totalClients: number
     inProgress: number
     completed: number
     stale: number
+    activeSubscribers: number
+    pendingSubscribers: number
+    planBreakdown: PlanBreakdown
     phaseDistribution: { phase: string; count: number }[]
     stepFunnel: { step: string; count: number }[]
     registrationTrend: { week: string; count: number }[]
@@ -99,7 +109,7 @@ export default function AdminDashboard() {
             .catch(() => setLoading(false))
     }, [])
 
-    const statCards = [
+    const onboardingCards = [
         {
             label: "Total Clients",
             value: stats?.totalClients ?? null,
@@ -124,34 +134,46 @@ export default function AdminDashboard() {
     ]
 
     return (
-        <div className="space-y-6">
-            {/* Stat cards */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                {statCards.map((s) => (
-                    <StatCard
-                        key={s.label}
-                        label={s.label}
-                        value={s.value}
-                        icon={s.icon}
-                        warn={s.warn}
-                    />
-                ))}
+        <div className="space-y-12">
+            {/* ── Onboarding stats ── */}
+            <div className="space-y-3">
+                <p className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground/40 uppercase">
+                    Onboarding
+                </p>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                    {onboardingCards.map((s) => (
+                        <StatCard
+                            key={s.label}
+                            label={s.label}
+                            value={s.value}
+                            icon={s.icon}
+                            warn={s.warn}
+                        />
+                    ))}
+                </div>
             </div>
 
-            {/* Charts — left: 3 stacked, right: step funnel */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {/* ── Subscription stats ── */}
+            <SubscriptionStatCards
+                activeSubscribers={stats?.activeSubscribers ?? null}
+                pendingSubscribers={stats?.pendingSubscribers ?? null}
+                planBreakdown={stats?.planBreakdown ?? null}
+                loading={loading}
+            />
+    
+
+            {/* ── Charts ── */}
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 {/* Left column */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-6">
                     <PhaseDistributionChart
                         data={stats?.phaseDistribution ?? []}
                         loading={loading}
                     />
-
                     <RegistrationAreaChart
                         data={stats?.registrationTrend ?? []}
                         loading={loading}
                     />
-
                     <CompletionsBarChart
                         data={stats?.completionTrend ?? []}
                         loading={loading}
@@ -159,45 +181,17 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Right column */}
-                <StepFunnelChart
-                    data={stats?.stepFunnel ?? []}
-                    loading={loading}
-                />
+                <div className="flex flex-col gap-6">
+                    <StepFunnelChart
+                        data={stats?.stepFunnel ?? []}
+                        loading={loading}
+                    />
+                    <PlanDistributionChart
+                        data={stats?.planBreakdown ?? null}
+                        loading={loading}
+                    />
+                </div>
             </div>
-
-            {/* Quick clients link */}
-            <Card className="group relative overflow-hidden rounded-2xl border border-[#b6954a]/20 bg-card shadow-[0_8px_30px_rgb(182,149,74,0.03)]">
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#b6954a]/5 to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
-                <div className="relative z-10 flex items-center justify-between border-b border-[#b6954a]/10 px-6 py-4">
-                    <div>
-                        <h2 className="text-sm font-semibold tracking-wide text-foreground">
-                            Clients Database
-                        </h2>
-                        <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-[#b6954a]/80 uppercase">
-                            {stats?.totalClients ?? "—"} total registered
-                        </p>
-                    </div>
-                    <Button
-                        asChild
-                        size="sm"
-                        variant="outline"
-                        className="h-8 rounded-lg border-[#b6954a]/20 text-xs hover:bg-[#b6954a]/10 hover:text-[#b6954a]"
-                    >
-                        <Link href="/admin/clients">View Registry</Link>
-                    </Button>
-                </div>
-                <div className="relative z-10 px-6 py-8 text-center text-sm text-muted-foreground">
-                    Access the{" "}
-                    <Link
-                        href="/admin/clients"
-                        className="font-medium text-[#b6954a] underline decoration-[#b6954a]/30 underline-offset-4 transition-all hover:text-[#d6b56c] hover:decoration-[#d6b56c]"
-                    >
-                        Client Registry
-                    </Link>{" "}
-                    to search, filter, and monitor individual executive
-                    progress.
-                </div>
-            </Card>
         </div>
     )
 }
