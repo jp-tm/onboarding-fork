@@ -284,9 +284,6 @@ models/
 
 2. **Email Pipeline** — Resend API key exists but zero sending logic. Need emails for: signup confirmation, pending approval notification, account activated, step completion nudges.
 
-3. **Onboarding Step Pages** — `OnboardingProfile` schema has all 17 steps defined. Dashboard shows progress. But individual step UI pages (forms, inputs, submission) are mostly absent or incomplete. The whole `/dashboard/onboarding/[step]` route needs building.
-
-4. **Stripe Webhook Secret** — Add `STRIPE_WEBHOOK_SECRET` to env + validate `stripe.webhooks.constructEvent()` on every incoming webhook.
 
 ### Medium Priority
 
@@ -299,18 +296,6 @@ models/
 8. **Stale Threshold Config** — Hardcoded to 7 days in admin stats. Should be admin-configurable.
 
 9. **Admin Pagination Limit** — Currently caps at 50 clients. May need cursor-based pagination for scale.
-
-### Low Priority
-
-10. **Error Monitoring** — No Sentry/logging service integrated. Errors only surface in server logs.
-
-11. **API Documentation** — No OpenAPI/Swagger spec.
-
-12. **Seeding / Migration Scripts** — No scripts to bootstrap dev DB or migrate schema changes.
-
-13. **Tests** — No test suite (unit, integration, or e2e).
-
-14. **2FA / OAuth** — Not implemented. JWT-only auth currently.
 
 ---
 
