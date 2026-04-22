@@ -13,6 +13,8 @@ export interface IUser extends Document {
     countryRegion: string
     phoneNumber: string
     role: "admin" | "client"
+    accountStatus: "unsubscribed" | "pending" | "active"
+    plan: "basic" | "intermediate" | "custom" | null
     createdAt?: Date
     updatedAt?: Date
 }
@@ -31,6 +33,16 @@ const UserSchema = new Schema<IUser>(
         countryRegion: { type: String, required: true },
         phoneNumber: { type: String, required: true },
         role: { type: String, enum: ["admin", "client"], default: "client" },
+        accountStatus: {
+            type: String,
+            enum: ["unsubscribed", "pending", "active"],
+            default: "unsubscribed",
+        },
+        plan: {
+            type: String,
+            enum: ["basic", "intermediate", "custom", null],
+            default: null,
+        },
     },
     { timestamps: true }
 )

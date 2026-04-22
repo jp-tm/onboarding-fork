@@ -36,7 +36,12 @@ export default async function DashboardPage() {
         const userId = (payload as any).userId
 
         await connectDB()
-        const user = await User.findById(userId).select("firstName")
+        const user = await User.findById(userId).select("firstName accountStatus")
+        if (!user) redirect("/login")
+
+        if (user.accountStatus === "unsubscribed") redirect("/plans")
+        if (user.accountStatus === "pending") redirect("/pending")
+
         const profile = await OnboardingProfile.findOne({ userId }).select(
             "status"
         )

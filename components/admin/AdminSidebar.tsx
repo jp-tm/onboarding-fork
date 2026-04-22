@@ -8,6 +8,7 @@ import {
     ClipboardList,
     BarChart3,
     Settings,
+    CreditCard,
     ChevronRight,
     X,
 } from "lucide-react"
@@ -16,6 +17,7 @@ import { cn } from "@/lib/utils"
 const NAV_ITEMS = [
     { label: "Overview", href: "/admin", icon: LayoutDashboard, exact: true },
     { label: "Clients", href: "/admin/clients", icon: Users },
+    { label: "Subscriptions", href: "/admin/subscriptions", icon: CreditCard },
     { label: "Onboarding", href: "/admin/onboarding", icon: ClipboardList },
     { label: "Reports", href: "/admin/reports", icon: BarChart3 },
     { label: "Settings", href: "/admin/settings", icon: Settings },
