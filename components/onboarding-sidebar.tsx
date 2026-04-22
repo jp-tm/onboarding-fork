@@ -198,6 +198,7 @@ export function OnboardingSidebar({
                 { id: "2A", label: "360° Evaluation" },
                 { id: "2B", label: "Growth Inputs" },
                 { id: "2C", label: "Evening Pulse" },
+                { id: "2D", label: "Home Audit" },
             ],
         },
         {

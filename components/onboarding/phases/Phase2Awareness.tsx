@@ -1,5 +1,5 @@
 "use client"
-import { Users, Info, Sparkles, Moon, Heart, Star } from "lucide-react"
+import { Users, Info, Sparkles, Moon, Heart, Star, Home } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
 
 interface Phase2Props {
@@ -222,6 +222,303 @@ export function Phase2Awareness({
                                 placeholder="What are you ready to release?"
                             />
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {currentStep === "2D" && (
+                <div className="max-w-3xl animate-in space-y-10 duration-700 fade-in">
+                    <div className="flex items-center gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20">
+                            <Home className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                            <h3 className="font-serif text-2xl font-bold">
+                                Home Audit
+                            </h3>
+                            <p className="text-sm text-primary/70">
+                                Honest inventory. No judgment. Just clarity.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Section 1: Chaos Inventory */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
+                            <span className="text-lg">🏚️</span>
+                            <h4 className="text-xs font-bold tracking-widest text-primary uppercase">
+                                Chaos Inventory
+                            </h4>
+                        </div>
+
+                        {[
+                            {
+                                key: "q1",
+                                question:
+                                    "What currently feels the most out of control in your home right now?",
+                                hint: "Where is the loudest chaos?",
+                                placeholder:
+                                    "Describe what feels most out of control...",
+                            },
+                            {
+                                key: "q2",
+                                question:
+                                    "When during the day do you feel the most overwhelmed—and what is happening at that time?",
+                                hint: "Find the pressure points.",
+                                placeholder: "Morning rush? After school? Evening?...",
+                            },
+                            {
+                                key: "q3",
+                                question:
+                                    "What are the 3–5 things you're mentally tracking every day that no one else is helping with?",
+                                hint: "This reveals invisible labor.",
+                                placeholder:
+                                    "List the things only you are holding...",
+                            },
+                            {
+                                key: "q4",
+                                question:
+                                    "If nothing changed, what would your home feel like 90 days from now?",
+                                hint: "Confront the cost of staying stuck.",
+                                placeholder: "Be honest about the trajectory...",
+                            },
+                        ].map(({ key, question, hint, placeholder }) => (
+                            <div key={key} className="space-y-3">
+                                <label className="block space-y-1">
+                                    <span className="text-sm font-semibold text-foreground">
+                                        {question}
+                                    </span>
+                                    <span className="block text-xs text-muted-foreground italic">
+                                        {hint}
+                                    </span>
+                                </label>
+                                <textarea
+                                    value={formData.home_audit?.[key] || ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            home_audit: {
+                                                ...formData.home_audit,
+                                                [key]: e.target.value,
+                                            },
+                                        })
+                                    }
+                                    className="min-h-[90px] w-full rounded-2xl border border-border bg-muted/40 p-4 transition-all outline-none focus:ring-2 focus:ring-primary/40"
+                                    placeholder={placeholder}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Section 2: Systems + Structure */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
+                            <span className="text-lg">🏡</span>
+                            <h4 className="text-xs font-bold tracking-widest text-primary uppercase">
+                                Systems + Structure Awareness
+                            </h4>
+                        </div>
+
+                        {[
+                            {
+                                key: "q5",
+                                question:
+                                    "What routines currently exist in your home (morning, after school, bedtime)—and are they actually followed?",
+                                hint: "Honest audit, not ideal version.",
+                                placeholder:
+                                    "Describe the routines that exist and how consistently they run...",
+                            },
+                            {
+                                key: "q6",
+                                question:
+                                    "Where do things tend to pile up or break down the most?",
+                                hint: "Laundry, dishes, backpacks, paperwork, schedules, etc.",
+                                placeholder:
+                                    "Name the areas or systems that constantly break down...",
+                            },
+                            {
+                                key: "q7",
+                                question:
+                                    "What responsibilities are clearly assigned—and what is just “assumed” you will handle?",
+                                hint: "This is where resentment lives.",
+                                placeholder:
+                                    "What's officially yours vs. what just defaults to you?...",
+                            },
+                        ].map(({ key, question, hint, placeholder }) => (
+                            <div key={key} className="space-y-3">
+                                <label className="block space-y-1">
+                                    <span className="text-sm font-semibold text-foreground">a
+                                        {question}
+                                    </span>
+                                    <span className="block text-xs text-muted-foreground italic">
+                                        {hint}
+                                    </span>
+                                </label>
+                                <textarea
+                                    value={formData.home_audit?.[key] || ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            home_audit: {
+                                                ...formData.home_audit,
+                                                [key]: e.target.value,
+                                            },
+                                        })
+                                    }
+                                    className="min-h-[90px] w-full rounded-2xl border border-border bg-muted/40 p-4 transition-all outline-none focus:ring-2 focus:ring-primary/40"
+                                    placeholder={placeholder}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Section 3: Leadership + Family Alignment */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
+                            <span className="text-lg">👨‍👩‍👧‍👦</span>
+                            <h4 className="text-xs font-bold tracking-widest text-primary uppercase">
+                                Leadership + Family Alignment
+                            </h4>
+                        </div>
+
+                        {[
+                            {
+                                key: "q8",
+                                question:
+                                    "If your family had to describe how the home runs right now in one word, what would it be?",
+                                hint: "Chaos, rushed, reactive, peaceful, structured, etc.",
+                                placeholder: "One word, then explain...",
+                            },
+                            {
+                                key: "q9",
+                                question:
+                                    "What do your kids (and/or partner) currently own vs. what do they wait for you to direct?",
+                                hint: "Dependency vs. leadership culture.",
+                                placeholder:
+                                    "What do they own? What do they wait on you for?...",
+                            },
+                            {
+                                key: "q10",
+                                question:
+                                    "Where are you over-functioning—and where should you actually be leading instead of doing?",
+                                hint: "",
+                                placeholder:
+                                    "Where are you doing things others should own?...",
+                            },
+                        ].map(({ key, question, hint, placeholder }) => (
+                            <div key={key} className="space-y-3">
+                                <label className="block space-y-1">
+                                    <span className="text-sm font-semibold text-foreground">
+                                        {question}
+                                    </span>
+                                    {hint && (
+                                        <span className="block text-xs text-muted-foreground italic">
+                                            {hint}
+                                        </span>
+                                    )}
+                                </label>
+                                <textarea
+                                    value={formData.home_audit?.[key] || ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            home_audit: {
+                                                ...formData.home_audit,
+                                                [key]: e.target.value,
+                                            },
+                                        })
+                                    }
+                                    className="min-h-[90px] w-full rounded-2xl border border-border bg-muted/40 p-4 transition-all outline-none focus:ring-2 focus:ring-primary/40"
+                                    placeholder={placeholder}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Section 4: Clarity + Vision Reset */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
+                            <span className="text-lg">💭</span>
+                            <h4 className="text-xs font-bold tracking-widest text-primary uppercase">
+                                Clarity + Vision Reset
+                            </h4>
+                        </div>
+
+                        {[
+                            {
+                                key: "q11",
+                                question:
+                                    "What would a \"peaceful and well-run home\" actually look like for YOU—not Instagram?",
+                                hint: "Define your version of peace.",
+                                placeholder:
+                                    "Describe what peace in your home actually looks like...",
+                            },
+                            {
+                                key: "q12",
+                                question:
+                                    "If you could fix just ONE system this week that would make everything feel lighter, what would it be?",
+                                hint: "This creates immediate traction.",
+                                placeholder: "Name the one thing...",
+                            },
+                        ].map(({ key, question, hint, placeholder }) => (
+                            <div key={key} className="space-y-3">
+                                <label className="block space-y-1">
+                                    <span className="text-sm font-semibold text-foreground">
+                                        {question}
+                                    </span>
+                                    <span className="block text-xs text-muted-foreground italic">
+                                        {hint}
+                                    </span>
+                                </label>
+                                <textarea
+                                    value={formData.home_audit?.[key] || ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            home_audit: {
+                                                ...formData.home_audit,
+                                                [key]: e.target.value,
+                                            },
+                                        })
+                                    }
+                                    className="min-h-[90px] w-full rounded-2xl border border-border bg-muted/40 p-4 transition-all outline-none focus:ring-2 focus:ring-primary/40"
+                                    placeholder={placeholder}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Embodiment Step */}
+                    <div className="space-y-4 rounded-[2rem] border border-primary/20 bg-primary/5 p-8">
+                        <div className="flex items-center gap-3">
+                            <span className="text-xl">💡</span>
+                            <div>
+                                <p className="text-xs font-bold tracking-widest text-primary uppercase">
+                                    Step Towards Embodiment
+                                </p>
+                                <p className="text-sm text-muted-foreground italic">
+                                    This is where the shift happens.
+                                </p>
+                            </div>
+                        </div>
+                        <p className="text-sm font-semibold text-foreground">
+                            What&apos;s one small change you are willing to commit to
+                            this week to move your home toward peace?
+                        </p>
+                        <textarea
+                            value={formData.home_audit?.embodiment || ""}
+                            onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    home_audit: {
+                                        ...formData.home_audit,
+                                        embodiment: e.target.value,
+                                    },
+                                })
+                            }
+                            className="min-h-[100px] w-full rounded-2xl border border-primary/20 bg-background p-4 transition-all outline-none focus:ring-2 focus:ring-primary/40"
+                            placeholder="I commit to..."
+                        />
                     </div>
                 </div>
             )}

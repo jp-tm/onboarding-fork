@@ -4,7 +4,7 @@ import { Heart, Brain, Compass, Rocket } from "lucide-react"
 
 const PHASE_META = [
     { num: 1, label: "Connection", icon: Heart, steps: 6 },
-    { num: 2, label: "Awareness", icon: Brain, steps: 3 },
+    { num: 2, label: "Awareness", icon: Brain, steps: 4 },
     { num: 3, label: "Stabilization", icon: Compass, steps: 5 },
     { num: 4, label: "Activation", icon: Rocket, steps: 3 },
 ]
@@ -27,6 +27,7 @@ const STEP_LABELS: Record<string, string> = {
     "2A": "360 Evaluation",
     "2B": "Growth Inputs",
     "2C": "Evening Pulse",
+    "2D": "Home Audit",
     "3A": "Vision Activation",
     "3B": "Vision Statements",
     "3C": "Ideal Day Narrative",
