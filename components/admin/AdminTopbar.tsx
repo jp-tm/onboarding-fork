@@ -14,7 +14,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { Bell, LogOut, Menu } from "lucide-react"
+import { NotificationPanel } from "@/components/admin/NotificationPanel"
+import { LogOut, Menu } from "lucide-react"
 
 const PAGE_TITLES: Record<string, string> = {
     "/admin": "Overview",
@@ -88,13 +89,7 @@ export function AdminTopbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
 
             {/* Right: actions */}
             <div className="flex items-center gap-3">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-9 w-9 rounded-full text-muted-foreground transition-colors hover:bg-[#b6954a]/10 hover:text-[#b6954a]"
-                >
-                    <Bell className="h-4.5 w-4.5" />
-                </Button>
+                <NotificationPanel />
 
                 <div className="scale-90">
                     <ModeToggle />
