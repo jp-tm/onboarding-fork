@@ -149,7 +149,7 @@ export default function PlanConfigPage() {
     }
 
     return (
-        <div className="space-y-8 pb-20">
+        <div className="mx-auto max-w-3xl space-y-6 pb-20">
             <div>
                 <h1 className="text-2xl font-bold tracking-tight text-foreground">
                     Plan Configuration
@@ -171,9 +171,9 @@ export default function PlanConfigPage() {
                         className="overflow-hidden rounded-2xl border border-[#b6954a]/20 bg-card shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                     >
                         {/* Card header */}
-                        <div className="flex items-center justify-between border-b border-[#b6954a]/15 bg-muted/30 px-6 py-4">
+                        <div className="flex items-center justify-between border-b border-[#b6954a]/15 bg-muted/30 px-5 py-3.5">
                             <div className="flex items-center gap-3">
-                                <div className="rounded-xl bg-gradient-to-br from-[#b6954a]/15 to-[#b6954a]/5 p-2.5 ring-1 ring-[#b6954a]/10">
+                                <div className="rounded-xl bg-gradient-to-br from-[#b6954a]/15 to-[#b6954a]/5 p-2 ring-1 ring-[#b6954a]/10">
                                     <Icon className="h-4 w-4 text-[#b6954a]" />
                                 </div>
                                 <div>
@@ -197,7 +197,7 @@ export default function PlanConfigPage() {
                                 <button
                                     onClick={() => resetPlan(plan.planId)}
                                     disabled={!!resetting || !!saving}
-                                    className="flex items-center gap-1.5 rounded-xl border border-border/60 bg-background/50 px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-red-500/30 hover:text-red-500 disabled:opacity-40"
+                                    className="flex items-center gap-1.5 rounded-xl border border-border/60 bg-background/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-red-500/30 hover:text-red-500 disabled:opacity-40"
                                 >
                                     {isResetting ? <Loader2 className="h-3 w-3 animate-spin" /> : <RotateCcw className="h-3 w-3" />}
                                     Reset
@@ -205,7 +205,7 @@ export default function PlanConfigPage() {
                                 <button
                                     onClick={() => savePlan(plan.planId)}
                                     disabled={!isDirty || !!saving || !!resetting}
-                                    className="flex items-center gap-1.5 rounded-xl bg-[#b6954a] px-3 py-2 text-xs font-bold text-white transition-opacity hover:bg-[#d6b56c] disabled:opacity-40"
+                                    className="flex items-center gap-1.5 rounded-xl bg-[#b6954a] px-3 py-1.5 text-xs font-bold text-white transition-opacity hover:bg-[#d6b56c] disabled:opacity-40"
                                 >
                                     {isSaving ? <Loader2 className="h-3 w-3 animate-spin" /> : <Save className="h-3 w-3" />}
                                     Save
@@ -213,145 +213,145 @@ export default function PlanConfigPage() {
                             </div>
                         </div>
 
-                        <div className="space-y-6 p-6">
-                            {/* Price + Period + CTA row */}
-                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                <div className="space-y-2">
+                        <div className="grid grid-cols-1 gap-0 sm:grid-cols-[3fr_2fr]">
+                            {/* Left — scalar fields */}
+                            <div className="space-y-4 border-b border-[#b6954a]/10 p-5 sm:border-b-0 sm:border-r">
+                                {/* Price + Period + CTA */}
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="space-y-1.5">
+                                        <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
+                                            Price
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={plan.price}
+                                            onChange={(e) => updatePlan(plan.planId, "price", e.target.value)}
+                                            placeholder="$297"
+                                            className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
+                                            Period
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={plan.period}
+                                            onChange={(e) => updatePlan(plan.planId, "period", e.target.value)}
+                                            placeholder="/mo"
+                                            className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
+                                            CTA Label
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={plan.ctaLabel}
+                                            onChange={(e) => updatePlan(plan.planId, "ctaLabel", e.target.value)}
+                                            placeholder="Get Started"
+                                            className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Stripe URL */}
+                                <div className="space-y-1.5">
                                     <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
-                                        Price Display
+                                        Stripe Payment Link
                                     </label>
-                                    <input
-                                        type="text"
-                                        value={plan.price}
-                                        onChange={(e) => updatePlan(plan.planId, "price", e.target.value)}
-                                        placeholder="e.g. $297"
-                                        className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3.5 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="url"
+                                            value={plan.stripeUrl ?? ""}
+                                            onChange={(e) =>
+                                                updatePlan(plan.planId, "stripeUrl", e.target.value || null)
+                                            }
+                                            placeholder="https://buy.stripe.com/..."
+                                            className="flex-1 rounded-xl border border-[#b6954a]/20 bg-background/50 px-3 py-2.5 font-mono text-xs text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
+                                        />
+                                        {plan.stripeUrl && (
+                                            <a
+                                                href={plan.stripeUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-1.5 rounded-xl border border-[#b6954a]/20 bg-[#b6954a]/5 px-2.5 py-2.5 text-xs text-[#b6954a] transition-colors hover:bg-[#b6954a]/10"
+                                            >
+                                                <ExternalLink className="h-3.5 w-3.5" />
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Description */}
+                                <div className="space-y-1.5">
+                                    <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
+                                        Description
+                                    </label>
+                                    <textarea
+                                        value={plan.description}
+                                        onChange={(e) => updatePlan(plan.planId, "description", e.target.value)}
+                                        rows={2}
+                                        placeholder="Short plan description shown on the plans page..."
+                                        className="w-full resize-none rounded-xl border border-[#b6954a]/20 bg-background/50 px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
-                                        Period
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={plan.period}
-                                        onChange={(e) => updatePlan(plan.planId, "period", e.target.value)}
-                                        placeholder="/mo — or leave blank"
-                                        className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3.5 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
-                                        Button Label
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={plan.ctaLabel}
-                                        onChange={(e) => updatePlan(plan.planId, "ctaLabel", e.target.value)}
-                                        placeholder="Get Started"
-                                        className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3.5 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
-                                    />
+
+                                {/* Visibility toggle */}
+                                <div className="flex items-center justify-between rounded-xl border border-[#b6954a]/15 bg-muted/30 px-3.5 py-2.5">
+                                    <div>
+                                        <p className="text-xs font-medium text-foreground">Visibility</p>
+                                        <p className="text-[11px] text-muted-foreground/60">
+                                            {plan.isActive ? "Shown on plans page" : "Hidden from plans page"}
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={() => updatePlan(plan.planId, "isActive", !plan.isActive)}
+                                        className={`relative h-5 w-9 rounded-full transition-colors duration-200 ${
+                                            plan.isActive ? "bg-[#b6954a]" : "bg-muted-foreground/20"
+                                        }`}
+                                    >
+                                        <span
+                                            className={`absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                                                plan.isActive ? "translate-x-4" : "translate-x-0"
+                                            }`}
+                                        />
+                                    </button>
                                 </div>
                             </div>
 
-                            {/* Stripe URL */}
-                            <div className="space-y-2">
-                                <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
-                                    Stripe Payment Link
-                                </label>
-                                <div className="flex items-center gap-2">
-                                    <input
-                                        type="url"
-                                        value={plan.stripeUrl ?? ""}
-                                        onChange={(e) =>
-                                            updatePlan(plan.planId, "stripeUrl", e.target.value || null)
-                                        }
-                                        placeholder="https://buy.stripe.com/..."
-                                        className="flex-1 rounded-xl border border-[#b6954a]/20 bg-background/50 px-3.5 py-3 font-mono text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
-                                    />
-                                    {plan.stripeUrl && (
-                                        <a
-                                            href={plan.stripeUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-1.5 rounded-xl border border-[#b6954a]/20 bg-[#b6954a]/5 px-3 py-3 text-xs text-[#b6954a] transition-colors hover:bg-[#b6954a]/10"
-                                        >
-                                            <ExternalLink className="h-3.5 w-3.5" />
-                                        </a>
-                                    )}
-                                </div>
-                                <p className="text-[11px] text-muted-foreground/50">
-                                    Leave blank for plans without a Stripe checkout (e.g. Custom).
-                                </p>
-                            </div>
-
-                            {/* Description */}
-                            <div className="space-y-2">
-                                <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
-                                    Description
-                                </label>
-                                <textarea
-                                    value={plan.description}
-                                    onChange={(e) => updatePlan(plan.planId, "description", e.target.value)}
-                                    rows={2}
-                                    placeholder="Short plan description shown on the plans page..."
-                                    className="w-full rounded-xl border border-[#b6954a]/20 bg-background/50 px-3.5 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
-                                />
-                            </div>
-
-                            {/* Features */}
-                            <div className="space-y-3">
+                            {/* Right — features */}
+                            <div className="flex flex-col gap-2 p-5">
                                 <label className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/70 uppercase">
                                     Features
                                 </label>
-                                <div className="space-y-2">
+                                <div className="flex flex-1 flex-col gap-1.5">
                                     {plan.features.map((feature, i) => (
-                                        <div key={i} className="flex items-center gap-2">
+                                        <div key={i} className="flex items-center gap-1.5">
                                             <input
                                                 type="text"
                                                 value={feature}
                                                 onChange={(e) => updateFeature(plan.planId, i, e.target.value)}
                                                 placeholder={`Feature ${i + 1}`}
-                                                className="flex-1 rounded-xl border border-[#b6954a]/20 bg-background/50 px-3.5 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
+                                                className="flex-1 min-w-0 rounded-lg border border-[#b6954a]/20 bg-background/50 px-2.5 py-2 text-xs text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-[#b6954a]/50 focus:ring-2 focus:ring-[#b6954a]/20"
                                             />
                                             <button
                                                 onClick={() => removeFeature(plan.planId, i)}
-                                                className="flex h-9 w-9 items-center justify-center rounded-xl border border-border/60 text-muted-foreground/40 transition-colors hover:border-red-500/30 hover:text-red-500"
+                                                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-border/60 text-muted-foreground/40 transition-colors hover:border-red-500/30 hover:text-red-500"
                                             >
-                                                <Trash2 className="h-3.5 w-3.5" />
+                                                <Trash2 className="h-3 w-3" />
                                             </button>
                                         </div>
                                     ))}
                                     <button
                                         onClick={() => addFeature(plan.planId)}
-                                        className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#b6954a]/25 py-2.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[#b6954a]/50 hover:text-[#b6954a]"
+                                        className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-[#b6954a]/25 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-[#b6954a]/50 hover:text-[#b6954a]"
                                     >
-                                        <Plus className="h-3.5 w-3.5" />
-                                        Add Feature
+                                        <Plus className="h-3 w-3" />
+                                        Add
                                     </button>
                                 </div>
-                            </div>
-
-                            {/* Visibility toggle */}
-                            <div className="flex items-center justify-between rounded-xl border border-[#b6954a]/15 bg-muted/30 px-4 py-3">
-                                <div>
-                                    <p className="text-sm font-medium text-foreground">Plan Visibility</p>
-                                    <p className="text-xs text-muted-foreground">
-                                        {plan.isActive ? "Shown on the plans page" : "Hidden from the plans page"}
-                                    </p>
-                                </div>
-                                <button
-                                    onClick={() => updatePlan(plan.planId, "isActive", !plan.isActive)}
-                                    className={`relative h-6 w-11 rounded-full transition-colors duration-200 ${
-                                        plan.isActive ? "bg-[#b6954a]" : "bg-muted-foreground/20"
-                                    }`}
-                                >
-                                    <span
-                                        className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${
-                                            plan.isActive ? "translate-x-5" : "translate-x-0"
-                                        }`}
-                                    />
-                                </button>
                             </div>
                         </div>
                     </Card>
