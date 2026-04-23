@@ -22,8 +22,8 @@ const NAV_ITEMS = [
     { label: "Subscriptions", href: "/admin/subscriptions", icon: CreditCard },
     { label: "Questions", href: "/admin/questions", icon: FileQuestion },
     { label: "Plan Config", href: "/admin/plan-config", icon: Tag },
-    { label: "Onboarding", href: "/admin/onboarding", icon: ClipboardList },
-    { label: "Reports", href: "/admin/reports", icon: BarChart3 },
+    // { label: "Onboarding", href: "/admin/onboarding", icon: ClipboardList },
+    // { label: "Reports", href: "/admin/reports", icon: BarChart3 },
     { label: "Settings", href: "/admin/settings", icon: Settings },
 ]
 
