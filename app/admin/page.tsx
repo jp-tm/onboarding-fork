@@ -51,11 +51,13 @@ function StatCard({
                     <p className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground/60 uppercase transition-colors group-hover:text-foreground/80">
                         {label}
                     </p>
-                    <p
-                        className={`mt-2 text-4xl font-extrabold tracking-tight ${warn && value ? "text-amber-500" : "text-foreground"} drop-shadow-sm`}
-                    >
-                        {value ?? "—"}
-                    </p>
+                    {value === null ? (
+                        <div className="mt-3 h-10 w-20 animate-pulse rounded-lg bg-[#b6954a]/10" />
+                    ) : (
+                        <p className={`mt-2 text-4xl font-extrabold tracking-tight ${warn && value ? "text-amber-500" : "text-foreground"} drop-shadow-sm`}>
+                            {value}
+                        </p>
+                    )}
                 </div>
                 <div
                     className={`rounded-xl p-3 shadow-[inset_0_1px_3px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:scale-110 ${warn ? "bg-gradient-to-br from-amber-500/15 to-transparent" : "bg-gradient-to-br from-[#b6954a]/15 to-[#b6954a]/5 ring-1 ring-[#b6954a]/10"}`}

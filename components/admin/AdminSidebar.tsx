@@ -5,10 +5,7 @@ import { usePathname } from "next/navigation"
 import {
     LayoutDashboard,
     Users,
-    ClipboardList,
-    BarChart3,
     Settings,
-    CreditCard,
     ChevronRight,
     X,
     FileQuestion,
@@ -19,7 +16,6 @@ import { cn } from "@/lib/utils"
 const NAV_ITEMS = [
     { label: "Overview", href: "/admin", icon: LayoutDashboard, exact: true },
     { label: "Clients", href: "/admin/clients", icon: Users },
-    { label: "Subscriptions", href: "/admin/subscriptions", icon: CreditCard },
     { label: "Questions", href: "/admin/questions", icon: FileQuestion },
     { label: "Plan Config", href: "/admin/plan-config", icon: Tag },
     // { label: "Onboarding", href: "/admin/onboarding", icon: ClipboardList },
