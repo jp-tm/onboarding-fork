@@ -15,7 +15,7 @@ export default async function OnboardingLayout({
     const cookieStore = await cookies()
     const token = cookieStore.get("auth_token")?.value
 
-    let status = { currentPhase: 1, currentStep: "1A", isCompleted: false }
+    let status = { currentPhase: 1, currentStep: "1A", highestPhase: 1, highestStep: "1A", isCompleted: false }
 
     if (token) {
         try {
