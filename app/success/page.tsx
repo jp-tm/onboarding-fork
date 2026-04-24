@@ -1,10 +1,8 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Sparkles, ArrowRight, Heart, Shield } from "lucide-react"
-import Lottie from "lottie-react"
-import welcomeLottie from "@/public/assets/welcome-lottie.json"
+import { Sparkles, ArrowRight, Heart, Crown, Shield } from "lucide-react"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import { toast } from "sonner"
 import { VideoPlayer } from "@/components/marketing/video-player"
@@ -40,7 +38,7 @@ export default function SuccessPage() {
         {
             id: 0,
             title: "Welcome Home!",
-            subtitle: '"I’m truly so glad you’re here."',
+            subtitle: '"I\'m truly so glad you\'re here."',
             content: (
                 <div className="animate-in space-y-10 duration-1000 fade-in">
                     <style>{`
@@ -48,66 +46,48 @@ export default function SuccessPage() {
             @keyframes welcomeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
             @keyframes welcomeRing { 0% { transform: scale(0.8); opacity: 0; } 50% { opacity: 0.3; } 100% { transform: scale(1.6); opacity: 0; } }
           `}</style>
-                    <div className="relative mx-auto flex h-48 w-48 items-center justify-center md:h-80 md:w-80">
+                    <div className="relative mx-auto flex h-48 w-48 items-center justify-center">
                         <div
                             className="pointer-events-none absolute inset-0 rounded-full blur-3xl"
                             style={{
                                 background:
                                     "radial-gradient(circle, rgba(182,149,74,0.3) 0%, transparent 70%)",
-                                animation:
-                                    "welcomeGlow 4s ease-in-out infinite",
+                                animation: "welcomeGlow 4s ease-in-out infinite",
                             }}
                         />
                         <div
                             className="absolute inset-0 rounded-full border border-primary/20"
-                            style={{
-                                animation: "welcomeRing 3s ease-out infinite",
-                            }}
+                            style={{ animation: "welcomeRing 3s ease-out infinite" }}
                         />
                         <div
                             className="absolute inset-0 rounded-full border border-primary/15"
-                            style={{
-                                animation:
-                                    "welcomeRing 3s ease-out infinite 1s",
-                            }}
+                            style={{ animation: "welcomeRing 3s ease-out infinite 1s" }}
                         />
                         <div
-                            className="relative flex h-48 w-48 items-center justify-center md:h-80 md:w-80"
+                            className="relative flex h-32 w-32 items-center justify-center rounded-full"
                             style={{
-                                animation:
-                                    "welcomeFloat 4s ease-in-out infinite",
+                                backgroundImage:
+                                    "linear-gradient(135deg, var(--primary), var(--accent-foreground, #d4b483))",
+                                boxShadow: "0 8px 40px rgba(182,149,74,0.3)",
+                                animation: "welcomeFloat 4s ease-in-out infinite",
                             }}
                         >
-                            <Lottie
-                                animationData={welcomeLottie}
-                                loop
-                                autoplay
-                                className="h-full w-full"
-                            />
+                            <Crown size={48} className="text-primary-foreground" />
                         </div>
                         <Shield
                             size={20}
                             className="absolute -top-2 -right-2 text-primary/40"
-                            style={{
-                                animation:
-                                    "welcomeFloat 3s ease-in-out infinite 0.5s",
-                            }}
+                            style={{ animation: "welcomeFloat 3s ease-in-out infinite 0.5s" }}
                         />
                         <Heart
                             size={16}
                             className="absolute -bottom-1 -left-3 text-primary/30"
-                            style={{
-                                animation:
-                                    "welcomeFloat 3.5s ease-in-out infinite 1s",
-                            }}
+                            style={{ animation: "welcomeFloat 3.5s ease-in-out infinite 1s" }}
                         />
                         <Sparkles
                             size={14}
                             className="absolute top-4 -left-6 text-primary/25"
-                            style={{
-                                animation:
-                                    "welcomeFloat 4s ease-in-out infinite 1.5s",
-                            }}
+                            style={{ animation: "welcomeFloat 4s ease-in-out infinite 1.5s" }}
                         />
                     </div>
                     <div className="space-y-4">
@@ -128,14 +108,12 @@ export default function SuccessPage() {
                             </span>
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic sm:text-2xl">
-                            &ldquo;I&rsquo;m truly so glad you&rsquo;re
-                            here.&rdquo;
+                            &ldquo;I&rsquo;m truly so glad you&rsquo;re here.&rdquo;
                         </p>
                         <div className="mx-auto max-w-md leading-relaxed text-muted-foreground">
-                            You&rsquo;ve made a beautiful decision. From this
-                            moment forward, you do not have to carry everything
-                            alone. You&rsquo;ve partnered with a team ready to
-                            help you thrive.
+                            You&rsquo;ve made a beautiful decision. From this moment
+                            forward, you do not have to carry everything alone.
+                            You&rsquo;ve partnered with a team ready to help you thrive.
                         </div>
                     </div>
                 </div>
@@ -153,9 +131,8 @@ export default function SuccessPage() {
                             The Invitation
                         </h2>
                         <p className="mx-auto max-w-lg text-lg text-muted-foreground">
-                            Hear directly from our founders about why this
-                            activation pathway is the gold standard for
-                            high-performance impact.
+                            Hear directly from our founders about why this activation
+                            pathway is the gold standard for high-performance impact.
                         </p>
                     </div>
                     <div className="group relative">
@@ -181,9 +158,8 @@ export default function SuccessPage() {
                             The Philosophy
                         </h2>
                         <p className="mx-auto max-w-lg text-lg text-muted-foreground">
-                            A deep dive into how we calibrate your internal
-                            wiring to achieve supernatural results in your life
-                            and legacy.
+                            A deep dive into how we calibrate your internal wiring to
+                            achieve supernatural results in your life and legacy.
                         </p>
                     </div>
                     <div className="group relative">
@@ -273,24 +249,14 @@ export default function SuccessPage() {
                 {currentStep.content}
 
                 <div className="flex flex-col items-center gap-6 pt-4">
-                    <button
+                    <InteractiveHoverButton
                         onClick={handleNext}
                         disabled={isStarting}
-                        className="group relative h-14 overflow-hidden rounded-xl px-10 text-base font-bold tracking-wider uppercase transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-40 md:h-16 md:px-14 md:text-lg"
-                        style={{
-                            backgroundImage:
-                                "linear-gradient(135deg, var(--primary), var(--accent-foreground, #d4b483))",
-                            color: "var(--primary-foreground)",
-                            boxShadow:
-                                "0 4px 24px rgba(182,149,74,0.25), 0 0 0 1px rgba(182,149,74,0.1)",
-                        }}
+                        className="h-16 px-12 text-xl border-primary/30 bg-card/50 backdrop-blur-xl shadow-2xl hover:border-primary transition-all group"
                     >
-                        <span className="relative z-10 flex items-center gap-2">
+                        <span className="flex items-center gap-2">
                             {isStarting ? (
-                                <>
-                                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-current/30 border-t-current" />
-                                    Activating
-                                </>
+                                "Activating..."
                             ) : (
                                 <>
                                     {currentStep.cta}
@@ -298,21 +264,12 @@ export default function SuccessPage() {
                                 </>
                             )}
                         </span>
-                        {!isStarting && (
-                            <span
-                                className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                style={{
-                                    backgroundImage:
-                                        "linear-gradient(135deg, var(--accent-foreground, #d4b483), var(--primary))",
-                                }}
-                            />
-                        )}
-                    </button>
+                    </InteractiveHoverButton>
 
                     {step > 0 && !isStarting && (
                         <button
                             onClick={() => setStep(step - 1)}
-                            className="h-10 rounded-xl border border-border/40 px-6 text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
+                            className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-primary"
                         >
                             Go Back
                         </button>
@@ -324,8 +281,7 @@ export default function SuccessPage() {
                             <span className="font-bold text-primary">™</span>
                         </p>
                         <p className="text-[10px] tracking-[0.1em] text-muted-foreground/50 uppercase">
-                            Step {step + 1} of {steps.length} • Activation
-                            Sequence
+                            Step {step + 1} of {steps.length} • Activation Sequence
                         </p>
                     </div>
                 </div>
